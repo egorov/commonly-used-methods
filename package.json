@@ -1,0 +1,22 @@
+{
+  "name": "commonly-used-methods",
+  "version": "0.0.1",
+  "description": "Commonly used methods",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/jasmine/bin/jasmine --config=jasmine.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egorov/commonly-used-methods.git"
+  },
+  "author": "Sergey Egorov <me@egorov.space>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/egorov/commonly-used-methods/issues"
+  },
+  "homepage": "https://github.com/egorov/commonly-used-methods#readme",
+  "devDependencies": {
+    "jasmine": "^3.9.0"
+  }
+}
