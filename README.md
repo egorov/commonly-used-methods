@@ -12,8 +12,7 @@ Do not forget to set environment variables:
 
 ```javascript  
 const winston = require('winston');
-const configureFileLogger = 
-  require('../commonly-used-methods/index').configureFileLogger;
+const configureFileLogger = require('commonly-used-methods').configureFileLogger;
 const state = {
   environment: process.env,
   makeLogger: winston.createLogger,
