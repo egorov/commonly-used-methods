@@ -27,7 +27,7 @@ module.exports = async function executeHttpRequest(state) {
 
           state.httpResponseBody = chunks.join('');
           
-          return resolve(state);
+          resolve(state);
         });
 
         response.on('error', error => reject(error));

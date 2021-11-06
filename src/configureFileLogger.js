@@ -1,4 +1,4 @@
-module.exports = async function configureFileLogger(state) {
+module.exports = function configureFileLogger(state) {
 
   if(state.error) return;
 
