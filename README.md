@@ -72,6 +72,28 @@ expect(state.user).toEqual({ email: 'joe@doe.com' });
 
 ```  
 
+### getUserPermissionsFromCacheAndVerify  
+
+It expects connected `Redis` client in state.  
+
+```javascript
+
+const execute = 
+  require('commonly-used-methods').getUserPermissionsFromCacheAndVerify;
+const state = {
+  cache: require('redis').createClient({ host: 'x_redis' }),
+  permission: 'Включать свет',
+  user: {
+    user_id: '88bc23a8af0'
+  }
+};
+
+await execute(state);
+
+expect(state.error).toBeUndefined();
+
+```  
+
 ### makeOperationId  
 
 Generates configurable length random string. Default string length 24 characters. Requires `randomBytes` method attached to state container.
