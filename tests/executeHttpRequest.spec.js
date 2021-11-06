@@ -80,5 +80,31 @@ describe('executeHttpRequest', () => {
       });
 
     request.emit('error', new Error('Request failed!'));
+  });
+
+  if('should do nothing if error already set', (done) => {
+
+    const error = new Error('Something wrong!');
+    const response = new ResponseMock(200);
+    const state = {
+      error,
+      httpRequestBody: { a: 'a' },
+      httpTransport: {
+        request: () => new RequestMock(response)
+      }
+    };
+ 
+    executeHttpRequest(state)
+      .then(() => {
+
+        expect(state.error).toEqual(error);
+        expect(state.httpResponse).toBeUndefined();
+        expect(state.httpResponseBody).toBeUndefined();
+       
+        done();
+      });
+
+    response.emit('data', JSON.stringify(expected));
+    response.emit('end');
   });  
 });

@@ -54,6 +54,24 @@ expect(value.userName).toEqual('jack');
 
 ```  
 
+### getUserFromCache  
+
+It expects connected `Redis` client in state.  
+
+```javascript
+
+const getUserFromCache = require('commonly-used-methods').getUserFromCache;
+const state = {
+  cache: require('redis').createClient({ host: 'x_redis' })
+};
+
+await getUserFromCache(state);
+
+expect(state.error).toBeUndefined();
+expect(state.user).toEqual({ email: 'joe@doe.com' });
+
+```  
+
 ### makeOperationId  
 
 Generates configurable length random string. Default string length 24 characters. Requires `randomBytes` method attached to state container.

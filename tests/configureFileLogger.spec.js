@@ -37,6 +37,17 @@ describe('configureFileLogger', () => {
     });
   });
 
+  if('should do nothing if error already set', async () => {
+
+    const error = new Error('Something wrong!');
+    const state = { error };
+
+    await configure(state);
+
+    expect(state.error).toEqual(error);
+    expect(state.logger).toBeUndefined();
+  });
+
   describe('should validate environment variable', () => {
 
     let state = null;

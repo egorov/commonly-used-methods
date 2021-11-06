@@ -51,5 +51,16 @@ describe('makeOperationId', () => {
       new Error('В контейнере состояния отсутствует функция randomBytes!')
     );
     expect(state.operationId).toBeUndefined();
+  });
+
+  if('should do nothing if error already set', async () => {
+
+    const error = new Error('Something wrong!');
+    const state = { error };
+
+    await configure(state);
+
+    expect(state.error).toEqual(error);
+    expect(state.operationId).toBeUndefined();
   });  
 });
