@@ -24,6 +24,40 @@ await configureFileLogger(state);
 state.logger.log('info', 'It works fine!');
 ```  
 
+### commitTransaction  
+
+Fires if there are non completed transaction and no error in state container.
+
+```javascript  
+const createTransaction = require('commonly-used-methods').createTransaction;
+const commitTransaction = require('commonly-used-methods').commitTransaction;
+const state = {
+  makeTransaction: knex.transactionProvider()
+};
+
+createTransaction(state);
+
+// Here use transaction to operate with database
+
+await commitTransaction(state);
+
+expect(state.transactionResult).not.toBeUndefined();
+```  
+
+### createTransaction  
+
+```javascript  
+const createTransaction = require('commonly-used-methods').createTransaction;
+const state = {
+  makeTransaction: knex.transactionProvider()
+};
+
+createTransaction(state);
+
+expect(state.error).toBeUndefined();
+expect(typeof state.transaction).toEqual('function');
+```  
+
 ### executeHttpRequest  
 
 ```javascript
@@ -113,4 +147,24 @@ makeOperationId(state);
 expect(state.error).toBeUndefined();
 expect(sate.operationId.length).toEqual(32);
 
+```  
+
+### rollbackTransaction  
+
+Fires if there are non completed transaction and error set in state container.
+
+```javascript  
+const createTransaction = require('commonly-used-methods').createTransaction;
+const rollbackTransaction = require('commonly-used-methods').rollbackTransaction;
+const state = {
+  makeTransaction: knex.transactionProvider()
+};
+
+createTransaction(state);
+
+state.error = new Error('Что-то пошло не так!');
+
+await rollbackTransaction(state);
+
+expect(state.transactionResult).not.toBeUndefined();
 ```  
