@@ -1,14 +1,19 @@
 describe('createTransaction', () => {
 
   const createTransaction = require('../src/createTransaction');
+  let database = null;
+
+  beforeEach(() => {
+    database = () => {};
+  });
 
   it('should pass', () => {
 
-    const state = {
-      makeTransaction() {
-        return { _id: '28a093a3819cc56ff' };
-      }
+    database.transactionProvider = function transactionProvider() {
+      return { _id: '28a093a3819cc56ff' };
     };
+  
+    const state = { database };
 
     createTransaction(state);
 
@@ -16,14 +21,26 @@ describe('createTransaction', () => {
     expect(state.transaction).toEqual({ _id: '28a093a3819cc56ff' });
   });
 
-  it('should fall when no makeTransaction', () => {
+  it('should fall when no database', () => {
 
-    const state = {};
+    const state = { };
 
     createTransaction(state);
 
     expect(state.error).toEqual(
-      new Error('В контейнере состояния отсутствует функция makeTransaction!')
+      new Error('В контейнере состояния отсутствует database!')
+    );
+    expect(state.transaction).toBeUndefined();
+  });
+
+  it('should fall when no transactionProvider', () => {
+
+    const state = { database };
+
+    createTransaction(state);
+
+    expect(state.error).toEqual(
+      new Error('В контейнере состояния отсутствует функция transactionProvider!')
     );
     expect(state.transaction).toBeUndefined();
   });
@@ -32,10 +49,8 @@ describe('createTransaction', () => {
 
     const error = new Error('Что-то не так!');
     const state = {
-      error,
-      makeTransaction() {
-        return { _id: '28a093a3819cc56ff' };
-      }
+      database,
+      error
     };
 
     createTransaction(state);

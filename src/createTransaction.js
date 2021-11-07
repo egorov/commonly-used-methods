@@ -4,10 +4,13 @@ module.exports = function createTransaction(state) {
 
   try {
 
-    if(typeof state.makeTransaction !== 'function')
-      throw new Error('В контейнере состояния отсутствует функция makeTransaction!');
+    if(!state.database)
+      throw new Error('В контейнере состояния отсутствует database!');
 
-    state.transaction = state.makeTransaction();
+    if(typeof state.database.transactionProvider !== 'function')
+      throw new Error('В контейнере состояния отсутствует функция transactionProvider!');
+
+    state.transaction = state.database.transactionProvider();
   }
   catch(error) {
     state.error = error;

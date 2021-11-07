@@ -48,8 +48,9 @@ expect(state.transactionResult).not.toBeUndefined();
 
 ```javascript  
 const createTransaction = require('commonly-used-methods').createTransaction;
+const knex = require('knex')({ client: 'pg', connection: { host: 'localhost' }});
 const state = {
-  makeTransaction: knex.transactionProvider()
+  database: knex
 };
 
 createTransaction(state);
