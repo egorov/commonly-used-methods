@@ -169,3 +169,35 @@ await rollbackTransaction(state);
 
 expect(state.transactionResult).not.toBeUndefined();
 ```  
+
+### validateRequestBody  
+
+```javascript  
+const validateRequestBody = require('commonly-used-methods').validateRequestBody;
+const state = {
+  request: {
+    body: {
+      user_id: '938a7361cc3271923ef'
+    }
+  },
+  requestBodyValidationRules: {
+    email: {
+      is_required: true,
+      type: 'email'
+    }
+  },
+  validate: require('plain-object-validation').validate
+};
+
+validateRequestBody(state);
+
+expect(state.error).toEqual(new Error('Ошибка валидации содержимого запроса!'));
+expect(state.requestBodyValidationResult).toEqual({
+  errors: [
+    email: [
+      { is_required: true },
+      { type: 'email' }
+    ]
+  ]
+});
+```  

@@ -12,7 +12,8 @@ describe('package', () => {
       getUserFromCache: require('../src/getUserFromCache'),
       getUserPermissionsFromCacheAndVerify: require('../src/getUserPermissionsFromCacheAndVerify'),
       makeOperationId: require('../src/makeOperationId'),
-      rollbackTransaction: require('../src/rollbackTransaction')
+      rollbackTransaction: require('../src/rollbackTransaction'),
+      validateRequestBody: require('../src/validateRequestBody')
     });
   });
 });
