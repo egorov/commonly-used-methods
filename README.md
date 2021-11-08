@@ -149,23 +149,6 @@ expect(state.errorResponseContent).toEqual({
 expect(state.error).toEqual(error);
 ```  
 
-```javascript
-
-const makeOperationId = require('commonly-used-methods').makeOperationId;
-const state = {
-  environment: {
-    OPERATION_ID_SIZE: '32'
-  },
-  randomBytes: require('crypto').randomBytes
-};
-
-makeOperationId(state);
-
-expect(state.error).toBeUndefined();
-expect(sate.operationId.length).toEqual(32);
-
-``` 
-
 ### makeOperationId  
 
 Generates configurable length random string. Default string length 24 characters. Requires `randomBytes` method attached to state container.
