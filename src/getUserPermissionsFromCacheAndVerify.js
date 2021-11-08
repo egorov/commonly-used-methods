@@ -1,14 +1,11 @@
 module.exports = async function getUserPermissionsFromCacheAndVerify(state) {
 
-  if(state.error) return;
+  if(state.error || !state.user) return;
 
   try {
 
     if(typeof state.permission !== 'string')
       throw new Error('В контейнере состояния отсутствует строковое значение permission!');
-
-    if(!state.user)
-      throw new Error('В контейнере состояния отсутствует информация о пользователе!');
 
     if(typeof state.user.user_id === 'undefined')
       throw new Error('Информация о пользователе не содержит user_id!');
@@ -34,7 +31,7 @@ module.exports = async function getUserPermissionsFromCacheAndVerify(state) {
       throw new Error('Разрешения пользователя не найдены!');
 
     if(permissions.indexOf(state.permission) === -1)
-      throw new Error(`У пользователя отсутствует разрешение ${state.permission}!`);
+      throw new Error('Пользователь не имеет разрешения на выполнение операции!');
   }
   catch(error) {
     state.error = error;

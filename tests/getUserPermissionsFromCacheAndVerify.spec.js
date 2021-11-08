@@ -38,7 +38,7 @@ describe('getUserPermissionsFromCacheAndVerify', () => {
     await execute(state);
 
     expect(state.error).toEqual(
-      new Error('У пользователя отсутствует разрешение Выгружать!')
+      new Error('Пользователь не имеет разрешения на выполнение операции!')
     );
   });
 
@@ -62,7 +62,7 @@ describe('getUserPermissionsFromCacheAndVerify', () => {
     );
   });
 
-  it('should set error state', async () => {
+  it('should do nothing if no user', async () => {
 
     const state = {
       cache: {
@@ -75,10 +75,25 @@ describe('getUserPermissionsFromCacheAndVerify', () => {
 
     await execute(state);
 
-    expect(state.error).toEqual(
-      new Error('В контейнере состояния отсутствует информация о пользователе!')
-    );
+    expect(state.error).toBeUndefined();
   });
+
+  it('should do nothing if user is null', async () => {
+
+    const state = {
+      cache: {
+        zrange(values, cb) {
+          cb(null, [ 'Загружать', '1' ]);
+        }
+      },
+      permission: 'Загружать',
+      user: null
+    };
+
+    await execute(state);
+
+    expect(state.error).toBeUndefined();
+  });  
 
   it('should set error state', async () => {
 

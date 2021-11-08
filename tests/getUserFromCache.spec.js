@@ -43,7 +43,7 @@ describe('getUserFromCache', () => {
     await getUserFromCache(state);
 
     expect(state.error).toEqual(
-      new Error('Request Authorization header not found!')
+      new Error('В запросе отсутствует заголовок Authorization!')
     );
     expect(state.user).toBeUndefined();
   });
@@ -66,7 +66,7 @@ describe('getUserFromCache', () => {
     await getUserFromCache(state);
 
     expect(state.error).toEqual(
-      new Error('Wrong request Authorization header value!')
+      new Error('Отсутствует токен авторизации!')
     );
     expect(state.user).toBeUndefined();
   });  
@@ -109,7 +109,7 @@ describe('getUserFromCache', () => {
 
     await getUserFromCache(state);
 
-    expect(state.error).toEqual(new Error('Wrong Authorization token!'));
+    expect(state.error).toEqual(new Error('Неверный токен авторизации!'));
     expect(state.user).toBeNull();
   });  
 

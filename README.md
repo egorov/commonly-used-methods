@@ -63,7 +63,7 @@ expect(typeof state.transaction).toEqual('function');
 
 ```javascript
 
-const execute = require('commonly-used-methods').executeHttpRequest;
+const executeHttpRequest = require('commonly-used-methods').executeHttpRequest;
 const state = {
   httpTransport: require('https'),
   httpRequestUrl: 'https://egorov.space/api/user/login',
@@ -80,7 +80,7 @@ const state = {
   }
 };
 
-await execute(state);
+await executeHttpRequest(state);
 
 const value = JSON.parse(state.httpResponseBody);
 
@@ -128,6 +128,43 @@ await execute(state);
 expect(state.error).toBeUndefined();
 
 ```  
+
+### makeErrorResponseContent  
+
+Knows about exceptions messages from `getUserFromCache`, `getUserPermissionsFromCacheAndVerify` and `validateRequestBody`. Generates minimal response content for it them `statusCode` and `body`:
+
+```javascript  
+const makeErrorResponseContent = require('commonly-used-methods').makeErrorResponseContent;
+const error = new Error('Отсутствует токен авторизации!');
+const state = { error };
+
+makeErrorResponseContent(state);
+
+expect(state.errorResponseContent).toEqual({
+  statusCode: 401,
+  body: {
+    danger: error.message
+  }
+});
+expect(state.error).toEqual(error);
+```  
+
+```javascript
+
+const makeOperationId = require('commonly-used-methods').makeOperationId;
+const state = {
+  environment: {
+    OPERATION_ID_SIZE: '32'
+  },
+  randomBytes: require('crypto').randomBytes
+};
+
+makeOperationId(state);
+
+expect(state.error).toBeUndefined();
+expect(sate.operationId.length).toEqual(32);
+
+``` 
 
 ### makeOperationId  
 
