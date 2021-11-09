@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function validateRequestBody(state) {
 
   if(state.error) return;

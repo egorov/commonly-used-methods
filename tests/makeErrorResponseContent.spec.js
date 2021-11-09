@@ -33,7 +33,7 @@ describe('makeErrorResponseContent', () => {
   
       makeErrorResponseContent(state);
   
-      expect(state.errorResponseContent).toEqual({
+      expect(state.responseContent).toEqual({
         statusCode: 401,
         body: {
           danger: error.message
@@ -53,7 +53,7 @@ describe('makeErrorResponseContent', () => {
 
     makeErrorResponseContent(state);
 
-    expect(state.errorResponseContent).toEqual({
+    expect(state.responseContent).toEqual({
       statusCode: 400,
       body: {
         danger: error.message,
@@ -70,7 +70,7 @@ describe('makeErrorResponseContent', () => {
 
     makeErrorResponseContent(state);
 
-    expect(state.errorResponseContent).toEqual({
+    expect(state.responseContent).toEqual({
       statusCode: 500,
       body: {
         danger: error.message
@@ -86,7 +86,7 @@ describe('makeErrorResponseContent', () => {
     makeErrorResponseContent(state);
 
     expect(state.error).toBeUndefined();
-    expect(state.errorResponseContent).toBeUndefined();
+    expect(state.responseContent).toBeUndefined();
   });
 
   it('should do nothing if error is not instance of Error', () => {
@@ -95,6 +95,6 @@ describe('makeErrorResponseContent', () => {
 
     makeErrorResponseContent(state);
 
-    expect(state.errorResponseContent).toBeUndefined();
+    expect(state.responseContent).toBeUndefined();
   });
 });

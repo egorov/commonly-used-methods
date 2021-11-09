@@ -1,15 +1,14 @@
-const util = require('util');
-const emitter = require('events');
+const EventEmitter = require('events');
 
-function ResponseMock(statusCode) {
+class ResponseMock extends EventEmitter {
 
-  this.statusCode = statusCode;  
+  constructor(statusCode) {
+    super();
 
-  emitter.call(this);
+    this.statusCode = statusCode;
+  }
+
+  setEncoding() {}
 }
-
-util.inherits(ResponseMock, emitter);
-
-ResponseMock.prototype.setEncoding = function() {}
 
 module.exports = ResponseMock;

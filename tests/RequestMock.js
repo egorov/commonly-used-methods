@@ -1,19 +1,17 @@
-const util = require('util');
-const emitter = require('events');
+const EventEmitter = require('events');
 
-function RequestMock(emitOnResponse) {
+class RequestMock extends EventEmitter {
+  
+  constructor(emitOnResponse) {
+    super();
+    this._emitOnResponse = emitOnResponse;
+  }
 
-  this._emitOnResponse = emitOnResponse;
+  end() {
+    this.emit('response', this._emitOnResponse);
+  }
 
-  emitter.call(this);
+  write() {}
 }
-
-util.inherits(RequestMock, emitter);
-
-RequestMock.prototype.end = function() {
-  this.emit('response', this._emitOnResponse);  
-};
-
-RequestMock.prototype.write = function() {};
 
 module.exports = RequestMock;

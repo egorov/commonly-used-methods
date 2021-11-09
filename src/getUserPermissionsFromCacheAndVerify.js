@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = async function getUserPermissionsFromCacheAndVerify(state) {
 
   if(state.error || !state.user) return;

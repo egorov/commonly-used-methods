@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = async function getUserFromCache(state) {
 
   if(state.error) return;

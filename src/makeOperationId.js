@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function makeOperationId(state) {
 
   if(state.error) return;

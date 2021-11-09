@@ -1,6 +1,6 @@
 {
   "name": "commonly-used-methods",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Commonly used methods",
   "main": "index.js",
   "scripts": {

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function configureFileLogger(state) {
 
   if(state.error) return;

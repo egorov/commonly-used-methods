@@ -140,7 +140,7 @@ const state = { error };
 
 makeErrorResponseContent(state);
 
-expect(state.errorResponseContent).toEqual({
+expect(state.responseContent).toEqual({
   statusCode: 401,
   body: {
     danger: error.message
@@ -188,6 +188,23 @@ state.error = new Error('Что-то пошло не так!');
 await rollbackTransaction(state);
 
 expect(state.transactionResult).not.toBeUndefined();
+```  
+
+### sendExpressHttpResponse  
+
+**Important!** There should be `expressjs` `response` object in state container.
+
+```javascript  
+const sendExpressHttpResponse = 
+  require('commonly-used-methods').sendExpressHttpResponse;
+const state = {
+    responseContent: {
+    statusCode: 200,
+    body: 'OK'
+  }
+};
+
+sendExpressHttpResponse(state);
 ```  
 
 ### validateRequestBody  

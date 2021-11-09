@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function makeErrorHttpResponse(state) {
 
   if(!(state.error instanceof Error)) return;
@@ -6,7 +8,7 @@ module.exports = function makeErrorHttpResponse(state) {
 
     if(state.error.message.indexOf('Ошибка валидации содержимого запроса!') > -1) {
 
-      state.errorResponseContent = {
+      state.responseContent = {
         statusCode: 400,
         body: {
           danger: state.error.message,
@@ -21,7 +23,7 @@ module.exports = function makeErrorHttpResponse(state) {
       
       if(state.error.message.indexOf(error.message) === -1 ) continue;
 
-      state.errorResponseContent = {
+      state.responseContent = {
         statusCode: error.statusCode,
         body: {
           danger: error.message
@@ -31,8 +33,8 @@ module.exports = function makeErrorHttpResponse(state) {
       break;
     }
 
-    if(!state.errorResponseContent)
-      state.errorResponseContent = {
+    if(!state.responseContent)
+      state.responseContent = {
         statusCode: 500,
         body: {
           danger: state.error.message

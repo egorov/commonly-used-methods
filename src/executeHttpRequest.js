@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = async function executeHttpRequest(state) {
 
   if(state.error) return;

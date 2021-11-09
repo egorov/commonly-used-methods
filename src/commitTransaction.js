@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = async function commitTransaction(state) {
 
   if(state.error) return;

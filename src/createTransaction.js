@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function createTransaction(state) {
 
   if(state.error) return;
