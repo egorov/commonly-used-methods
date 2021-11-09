@@ -8,5 +8,6 @@ module.exports = {
   makeErrorResponseContent: require('./src/makeErrorResponseContent'),
   makeOperationId: require('./src/makeOperationId'),
   rollbackTransaction: require('./src/rollbackTransaction'),
+  sendExpressHttpResponse: require('./src/sendExpressHttpResponse'),
   validateRequestBody: require('./src/validateRequestBody')
 };

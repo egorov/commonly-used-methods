@@ -198,7 +198,7 @@ expect(state.transactionResult).not.toBeUndefined();
 const sendExpressHttpResponse = 
   require('commonly-used-methods').sendExpressHttpResponse;
 const state = {
-    responseContent: {
+  responseContent: {
     statusCode: 200,
     body: 'OK'
   }
