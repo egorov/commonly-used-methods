@@ -1,6 +1,6 @@
-const EventEmitter = require('events');
+const { Stream } = require('stream');
 
-class ResponseMock extends EventEmitter {
+class ResponseMock extends Stream {
 
   constructor(statusCode) {
     super();
@@ -9,6 +9,10 @@ class ResponseMock extends EventEmitter {
   }
 
   setEncoding() {}
+
+  setHeaders(value) {
+    this.headers = value;
+  }
 }
 
 module.exports = ResponseMock;

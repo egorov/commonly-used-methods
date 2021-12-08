@@ -17,6 +17,26 @@ describe('ResponseMock', () => {
     response.emit('data', 'value');
   });
 
+  it('should implement setHeaders', (done) => {
+
+    const headers = {
+      'content-encoding': 'gzip'
+    };
+    const response = new ResponseMock(200);
+    response.setHeaders(headers);
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.headers).toEqual(headers);
+
+    response.on('data', chunk => {
+
+      expect(chunk).toEqual('value');
+      done();
+    });
+
+    response.emit('data', 'value');
+  });  
+
   it('should emit end', (done) => {
 
     const response = new ResponseMock(400);
