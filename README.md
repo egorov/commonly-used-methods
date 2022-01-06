@@ -86,6 +86,11 @@ const value = JSON.parse(state.httpResponseBody);
 
 expect(typeof value.access_token).toEqual('string');
 expect(value.userName).toEqual('jack');
+expect(state.httpResponseChunks).toEqual(
+  [
+    '{"access_token":"98092","userName":"jack"}' 
+  ]
+);
 
 ```  
 

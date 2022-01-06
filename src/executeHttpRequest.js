@@ -22,7 +22,7 @@ module.exports = async function executeHttpRequest(state) {
         if(typeof state.httpRequestEncoding === 'string')
           state.httpResponse.setEncoding(state.httpRequestEncoding);
 
-        state.chunks = [];
+        state.httpResponseChunks = [];
 
         implementResponseDataHandling(state);
       });      
@@ -54,12 +54,12 @@ function implementResponseDataHandling(state) {
     state.httpResponse.pipe(convertor);
 
   convertor.on('data', chunk => {
-    state.chunks.push(chunk);
+    state.httpResponseChunks.push(chunk);
   });
 
   convertor.on('end', () => {
 
-    state.httpResponseBody = state.chunks.join('');
+    state.httpResponseBody = state.httpResponseChunks.join('');
     
     state.resolve(state);
   });
