@@ -112,6 +112,29 @@ expect(state.user).toEqual({ email: 'joe@doe.com' });
 
 ```  
 
+### getUserPermissionsByUserIdAndPhoneAndVerify  
+
+It expects connected `Redis` client in state.  
+
+```javascript
+
+const execute = 
+  require('commonly-used-methods').getUserPermissionsByUserIdAndPhoneAndVerify;
+const state = {
+  cache: require('redis').createClient({ host: 'x_redis' }),
+  permission: 'Включать свет',
+  user: {
+    normal_phone: '7 9199998811',
+    user_id: '88bc23a8af0'
+  }
+};
+
+await execute(state);
+
+expect(state.error).toBeUndefined();
+
+```  
+
 ### getUserPermissionsFromCacheAndVerify  
 
 It expects connected `Redis` client in state.  

@@ -10,6 +10,7 @@ describe('package', () => {
       createTransaction: require('../src/createTransaction'),
       executeHttpRequest: require('../src/executeHttpRequest'),
       getUserFromCache: require('../src/getUserFromCache'),
+      getUserPermissionsByUserIdAndPhoneAndVerify: require('../src/getPermissionsByUserIdAndPhoneAndVerify'),
       getUserPermissionsFromCacheAndVerify: require('../src/getUserPermissionsFromCacheAndVerify'),
       makeErrorResponseContent: require('../src/makeErrorResponseContent'),
       makeOperationId: require('../src/makeOperationId'),
