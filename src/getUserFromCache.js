@@ -14,16 +14,21 @@ module.exports = async function getUserFromCache(state) {
   
     if(accessToken.length === 0) 
       throw new Error('Отсутствует токен авторизации!');
-    
-    state.user = await new Promise((resolve, reject) => {
 
-      state.cache.hgetall(accessToken, (error, value) => {
-    
-        if(error) reject(error);
-           
-        resolve(value);
-      });   
-    });
+    if(typeof state.cache.hGetAll === 'function') {
+      state.user = await state.cache.hGetAll(accessToken);
+    }
+    else {
+      state.user = await new Promise((resolve, reject) => {
+
+        state.cache.hgetall(accessToken, (error, value) => {
+      
+          if(error) reject(error);
+             
+          resolve(value);
+        });   
+      });  
+    }
 
     if(!state.user)
       throw new Error('Неверный токен авторизации!');
@@ -31,4 +36,4 @@ module.exports = async function getUserFromCache(state) {
   catch(error) {
     state.error = error;
   }
-};
+}

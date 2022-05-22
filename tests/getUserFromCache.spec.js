@@ -2,12 +2,35 @@ describe('getUserFromCache', () => {
 
   const getUserFromCache = require('../src/getUserFromCache');
 
-  it('should attach user info to state', async () => {
+  it('should call redis version 3 api to get user', async () => {
 
     const state = {
       cache: {
         hgetall(key, cb) {
           cb(null, { email: 'joe@doe.com' });
+        }
+      },
+      request: {
+        get() {
+          return 'Bearer token';
+        }
+      }
+    };
+
+    await getUserFromCache(state);
+
+    expect(state.error).toBeUndefined();
+    expect(state.user).toEqual({
+      email: 'joe@doe.com'
+    });
+  });
+
+  it('should call redis version 4 api to get user', async () => {
+
+    const state = {
+      cache: {
+        async hGetAll(key) {
+          return await new Promise(rslv => rslv({ email: 'joe@doe.com' }));
         }
       },
       request: {
