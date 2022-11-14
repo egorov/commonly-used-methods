@@ -35,6 +35,33 @@ describe('executeHttpRequest', () => {
     response.emit('end');
   });
 
+  it('should deal with binary body', (done) => {
+
+    const response = new ResponseMock(200);
+    const state = {
+      httpRequestBody: Buffer.from('binary content'),
+      httpTransport: {
+        request: () => new RequestMock(response)
+      }
+    };
+ 
+    executeHttpRequest(state)
+      .then(() => {
+
+        expect(state.error).toBeUndefined();
+        expect(state.httpResponse).toEqual(response);
+
+        const body = JSON.parse(state.httpResponseBody);
+
+        expect(body).toEqual(expected);
+        
+        done();
+      });
+
+    response.emit('data', JSON.stringify(expected));
+    response.emit('end');
+  });
+
   it('should deal with response error', (done) => {
     
     const response = new ResponseMock(200);
