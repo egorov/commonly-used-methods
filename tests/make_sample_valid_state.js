@@ -4,6 +4,10 @@ module.exports = function make_sample_valid_state() {
   return {
     configure_pg_client(configuration) { return { ...fake_pg_client_prototype, configuration }; },
     environment: {
+      LOG_FILE_NAME: '%DATE%-current.log',
+      LOG_FOLDER: '/var/log/folder',
+      LOG_LEVEL: 'debug',
+      LOG_MAX_SIZE: '2m',
       OPERATION_ID_LENGTH: '6',
       PG_CONNECTIONS: 'reports',
       REPORTS_PGHOST: 'remote.database',
@@ -13,7 +17,9 @@ module.exports = function make_sample_valid_state() {
       REPORTS_PGPORT: '3988'
     },
     logger: { log() {} },
-    make_random_bytes
+    make_random_bytes,
+    make_winston_logger,
+    winston_logger_transport_constructor
   };
 }
 
@@ -31,4 +37,15 @@ function make_random_bytes(length) {
     numbers.push(i);
   }
   return Buffer.from(numbers);
+}
+
+function make_winston_logger(configuration) {
+  return {
+    configuration,
+    log() {}
+  };
+}
+
+function winston_logger_transport_constructor(configuration) {
+  this.configuration = configuration;
 }
