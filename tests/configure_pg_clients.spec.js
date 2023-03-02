@@ -68,4 +68,15 @@ describe('configure_pg_clients', () => {
 
     expect(state.pg_client_reports).toBeUndefined();
   });
+
+  it('should do nothing no any configurations', async () => {
+
+    const state = make_valid_state();
+
+    await configure_pg_clients(state);
+
+    expect(state.error).toBeUndefined();
+
+    expect(state.pg_client_reports).toBeUndefined();
+  });
 });

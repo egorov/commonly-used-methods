@@ -65,4 +65,17 @@ describe('make_pg_connections_configurations', () => {
 
     expect(state.pg_connections_configurations).toBeUndefined();
   });
+
+  it('should set error if environment incomplete', () => {
+
+    const state = make_valid_state();
+
+    delete state.environment.REPORTS_PGDATABASE;
+
+    make_pg_connections_configurations(state);
+
+    expect(state.error).toEqual(new Error('Переменная среды REPORTS_PGDATABASE должна содержать непустую строку!'));
+    
+    expect(state.pg_connections_configurations).toBeUndefined();
+  });
 });
