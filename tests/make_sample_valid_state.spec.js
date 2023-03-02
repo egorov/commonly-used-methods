@@ -24,8 +24,11 @@ describe('make_sample_valid_state', () => {
     expect(state.logger.log).toBeInstanceOf(Function);
     expect(Object.keys(state.logger)).toEqual(['log']);
 
-    expect(state.configure_pg_client).toBeInstanceOf(Function);
-    expect(state.configure_pg_client({}).connect).toBeInstanceOf(Function);
+    expect(state.pg_client_constructor).toBeInstanceOf(Function);
+
+    const pg_client = new state.pg_client_constructor({});
+
+    expect(pg_client.connect).toBeInstanceOf(Function);
 
     expect(state.make_random_bytes).toBeInstanceOf(Function);
     expect(state.make_winston_logger).toBeInstanceOf(Function);

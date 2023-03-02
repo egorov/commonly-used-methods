@@ -13,7 +13,7 @@ module.exports = async function configure_pg_clients(state) {
       const configuration = state.pg_connections_configurations[key];
       const client_name = `pg_client_${key}`;
 
-      state[client_name] = state.configure_pg_client(configuration);
+      state[client_name] = new state.pg_client_constructor(configuration);
 
       await state[client_name].connect();
 

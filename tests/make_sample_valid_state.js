@@ -2,7 +2,6 @@
 
 module.exports = function make_sample_valid_state() {
   return {
-    configure_pg_client(configuration) { return { ...fake_pg_client_prototype, configuration }; },
     environment: {
       LOG_FILE_NAME: '%DATE%-current.log',
       LOG_FOLDER: '/var/log/folder',
@@ -19,15 +18,19 @@ module.exports = function make_sample_valid_state() {
     logger: { log() {} },
     make_random_bytes,
     make_winston_logger,
+    pg_client_constructor,
     winston_logger_transport_constructor
   };
 }
 
-const fake_pg_client_prototype = { 
-  connect() { 
+function pg_client_constructor(configuration) {
+  
+  this.configuration = configuration;
+
+  this.connect = function connect() {
     return new Promise(resolve => resolve(0));
-  }
-};
+  };
+}
 
 function make_random_bytes(length) {
   

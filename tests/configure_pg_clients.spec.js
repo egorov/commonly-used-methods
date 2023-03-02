@@ -20,6 +20,8 @@ describe('configure_pg_clients', () => {
       database: 'reports',
       port: 3988
     });
+
+    expect(state.pg_client_reports.connect).toBeInstanceOf(Function);
   });
 
   it('should attach multiple client to state', async () => {
@@ -45,6 +47,7 @@ describe('configure_pg_clients', () => {
       database: 'reports',
       port: 3988
     });
+    expect(state.pg_client_reports.connect).toBeInstanceOf(Function);
 
     expect(state.pg_client_sales.configuration).toEqual({
       user: 'jane',
@@ -53,6 +56,7 @@ describe('configure_pg_clients', () => {
       database: 'sales',
       port: 5462
     });
+    expect(state.pg_client_sales.connect).toBeInstanceOf(Function);
   });
 
   it('should do nothing if state error', async () => {
