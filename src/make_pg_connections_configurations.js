@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function make_pg_connection_configuration(state) {
+module.exports = function make_pg_connections_configurations(state) {
 
   if(state.error) return;
 
