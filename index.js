@@ -3,6 +3,7 @@ module.exports = {
   commitTransaction: require('./src/commitTransaction'),
   createTransaction: require('./src/createTransaction'),
   executeHttpRequest: require('./src/executeHttpRequest'),
+  execute_http_request: require('./src/execute_http_request'),
   getUserFromCache: require('./src/getUserFromCache'),
   getUserPermissionsByUserIdAndPhoneAndVerify: require('./src/getPermissionsByUserIdAndPhoneAndVerify'),
   getUserPermissionsFromCacheAndVerify: require('./src/getUserPermissionsFromCacheAndVerify'),
