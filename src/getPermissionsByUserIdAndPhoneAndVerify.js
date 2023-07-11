@@ -22,16 +22,20 @@ module.exports = async function getPermissionsByUserIdAndPhoneAndVerify(state) {
       -1,
       'WITHSCORES'
     ];
+    let permissions = [];
 
-    const permissions = await new Promise((resolve, reject) => {
+    if(typeof state.cache.zRange === 'function')
+      permissions = await state.cache.zRange(values[0], 0, -1, 'WITHSCORES');
+    else
+      permissions = await new Promise((resolve, reject) => {
 
-      state.cache.zrange(values, (error, permissions) => {
+        state.cache.zrange(values, (error, permissions) => {
 
-        if(error) reject(error);
+          if(error) reject(error);
 
-        resolve(permissions);
+          resolve(permissions);
+        });
       });
-    });
 
     if(permissions.length === 0)
       throw new Error('Разрешения пользователя не найдены!');

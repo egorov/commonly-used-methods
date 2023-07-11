@@ -182,4 +182,46 @@ describe('getPermissionsByUserIdAndPhoneAndVerify', () => {
       new Error('Разрешения пользователя не найдены!')
     );
   });
+
+  it('should pass', async () => {
+
+    const state = {
+      cache: {
+        zRange() {
+          return new Promise(resolve => resolve([ 'Загружать', '1' ]));
+        }
+      },
+      permission: 'Загружать',
+      user: {
+        normal_phone: '7 9129998811',
+        user_id: 1        
+      }
+    };
+
+    await execute(state);
+
+    expect(state.error).toBeUndefined();
+  });
+
+  it('should set error state', async () => {
+
+    const state = {
+      cache: {
+        zRange() {
+          return new Promise(resolve => resolve([ 'Загружать', '1' ]));
+        }
+      },
+      permission: 'Выгружать',
+      user: {
+        normal_phone: '7 9129998811',
+        user_id: 1
+      }
+    };
+
+    await execute(state);
+
+    expect(state.error).toEqual(
+      new Error('Пользователь не имеет разрешения на выполнение операции!')
+    );
+  });
 });
