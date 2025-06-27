@@ -30,10 +30,26 @@ module.exports = async function getUserFromCache(state) {
       });  
     }
 
-    if(!state.user)
+    if(is_empty(state.user))
       throw new Error('Неверный токен авторизации!');
   }
   catch(error) {
     state.error = error;
   }
+}
+
+function is_empty(value) {
+
+  if(value === null) return true;
+
+  if(value === undefined) return true;
+
+  if(typeof value === 'undefined') return true;
+
+  if(typeof value !== 'object') return true;
+
+  if(typeof value === 'object')
+    if(Object.keys(value).length === 0) return true;
+
+  return false;
 }

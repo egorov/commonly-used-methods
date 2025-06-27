@@ -23,7 +23,7 @@ describe('getUserFromCache', () => {
     expect(state.user).toEqual({
       email: 'joe@doe.com'
     });
-  });
+  });  
 
   it('should call redis version 4 api to get user', async () => {
 
@@ -48,6 +48,69 @@ describe('getUserFromCache', () => {
     });
   });
 
+  it('redis version 4 return empty object', async () => {
+
+    const state = {
+      cache: {
+        async hGetAll(key) {
+          return await new Promise(rslv => rslv({}));
+        }
+      },
+      request: {
+        get() {
+          return 'Bearer token';
+        }
+      }
+    };
+
+    await getUserFromCache(state);
+
+    expect(state.error).toEqual(new Error('Неверный токен авторизации!'));
+    expect(state.user).toEqual({});
+  });
+
+  it('redis version 4 return null', async () => {
+
+    const state = {
+      cache: {
+        async hGetAll(key) {
+          return await new Promise(rslv => rslv(null));
+        }
+      },
+      request: {
+        get() {
+          return 'Bearer token';
+        }
+      }
+    };
+
+    await getUserFromCache(state);
+
+    expect(state.error).toEqual(new Error('Неверный токен авторизации!'));
+    expect(state.user).toBeNull();
+  });
+
+    it('redis version 4 return undefined', async () => {
+
+    const state = {
+      cache: {
+        async hGetAll(key) {
+          return await new Promise(rslv => rslv(undefined));
+        }
+      },
+      request: {
+        get() {
+          return 'Bearer token';
+        }
+      }
+    };
+
+    await getUserFromCache(state);
+
+    expect(state.error).toEqual(new Error('Неверный токен авторизации!'));
+    expect(state.user).toBeUndefined();
+  });
+  
   it('should set error', async () => {
 
     const state = {
